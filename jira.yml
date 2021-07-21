@@ -1,0 +1,17 @@
+stages:
+ - generate
+
+generate-lastDay:
+  stage: generate
+  image: python
+  script:
+    - pip install -r requirements.txt
+    - python jira1.py --last_day --gitlab_token=$GITLAB_TOKEN --powerbi_url "$POWERBI_URL"
+  artifacts:
+    paths:
+      - commit_lifetime.csv
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: always
+    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+      when: manual
