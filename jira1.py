@@ -55,7 +55,7 @@ print('Retrieving merge requests from {} to {} into branches {}'.format(after, b
 with gitlab.Gitlab(args.gitlab_url, private_token=args.gitlab_token) as gitlab_conn:
     projects = gitlab_conn.projects.list(as_list=False, page_size=100)
     df = pd.DataFrame(
-        columns=['Group', 'Project', 'Commit_ID', 'Committed_date', 'Created_at', 'lifetime_hours', 'Target_Branch', 'Source_Branch'])
+        columns=['Name', 'Type', 'Related_Scheme', 'Date'])
     daily = {}
     for project in projects:
         # get the merge request via iid
